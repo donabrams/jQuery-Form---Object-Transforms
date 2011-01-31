@@ -97,14 +97,14 @@
 		if ($.isArray(toFlatten)) {
 			for (var i = 0; i < toFlatten.length;i++) {
 				if (undefined !== toFlatten[i]) {
-					$.flattenObject(toFlatten[i], toAddTo, property ? (property + "[" + i + "]") : ("[" + i + "]"), options);
+					$.flattenObject(toFlatten[i], toAddTo, property ? (property + "[" + i + "]") : ("[" + i + "]"), nullsAsEmptyString);
 				}
 			}
 		}
 		else if ((typeof toFlatten == 'object') && (null !== toFlatten)) {
             $.each(toFlatten, function(i) {
 				if (undefined !== toFlatten[i]) {
-					$.flattenObject(toFlatten[i], toAddTo, property ? (property + "." + i) : i, options);
+					$.flattenObject(toFlatten[i], toAddTo, property ? (property + "." + i) : i, nullsAsEmptyString);
 				}
             });
 		}
