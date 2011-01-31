@@ -110,10 +110,20 @@
 		}
 		else {
 			if (property) {
-				toAddTo[property] = nullsAsEmptyString ? (toFlatten == null ? "" : null) : String(toFlatten);
+				if (toFlatten == null) {
+					toAddTo[property] = nullsAsEmptyString ? "" : null;
+				}
+				else {
+					toAddTo[property] = String(toFlatten);
+				}
 			}
 			else {
-				toAddTo = nullsAsEmptyString ? (toFlatten == null ? "" : null) : String(toFlatten);
+				if (toFlatten == null) {
+					toAddTo = nullsAsEmptyString ? "" : null;
+				}
+				else {
+					toAddTo = String(toFlatten);
+				}
 			}
 		}
 		return toAddTo;
