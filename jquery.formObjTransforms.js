@@ -1,5 +1,5 @@
 (function($) {
-	var parseFormVal = function(val) {
+	var parseFieldVal = function(val) {
         if (val === "") {
             return null;
         }
@@ -54,7 +54,7 @@
 		}
         return obj;
     };
-    $.fn.formToObj = function(toAddTo, property) {
+    $.fn.fieldsToObj = function(toAddTo, property) {
         var toAddTo = toAddTo || {};
 		if (property) {
 			toAddTo[property] = toAddTo[property] || {};
@@ -63,18 +63,18 @@
 			toPopulate = toAddTo;
 		}
         $('input[type=text][name],input[type=hidden][name],textarea[name]', this).each(function(i) {
-            addToObjectOrArray(toPopulate, this.name, parseFormVal(this.value));
+            addToObjectOrArray(toPopulate, this.name, parseFieldVal(this.value));
         });
         $('input[type=checkbox][name],input[type=radio][name]', this).each(function(i) {
             if (this.checked) {
-                addToObjectOrArray(toPopulate, this.name, parseFormVal(this.value));
+                addToObjectOrArray(toPopulate, this.name, parseFieldVal(this.value));
             }
         });
         $('select[name]', this).each(function(i) {
             var select = this;
             $("option", this).each(function(j) {
                 if (this.selected) {
-                    addToObjectOrArray(toPopulate, select.name, parseFormVal(this.value));
+                    addToObjectOrArray(toPopulate, select.name, parseFieldVal(this.value));
                 }
             });
         });
