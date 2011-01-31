@@ -107,7 +107,7 @@
 		}
 		return toAddTo;
     };
-    $.fn.objToForm = function(obj, clearFirst) {
+    $.fn.objToFields = function(obj, clearFirst) {
         var fdoc = $.flattenObject(obj);
         var that = $(this);
         if (clearFirst) {

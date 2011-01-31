@@ -15,16 +15,17 @@ $.flattenObject(toFlatten/{}, property/String, toAddTo/{}, options/{})->{}:
   If toAddTo is provided, adds fields to ret.  Otherwise it creates a blank object.
   If property is provided, adds fields to an object or array named property, otherwise adds it to the base object.
   The only options supported currently is nullsAsEmptyString, which sees nulls as empty strings rather than making them null.
-$.fn.fieldsToObj(toAddTo, property)->{}: 
+$.fn.fieldsToObj(toAddTo/{}, property/String)->{}: 
   Takes the inputs, selects, and textareas contained in the jquery object acted on and parses them into an object.  If names have a dot or [], parsed appropriately.
   toAddTo and property act the same as in flattenObject.
 $.fn.objToFields(obj/{}, clearFirst/bool):
   Takes the object and places the variables into select, textarea, and input nodes of the same name.
   If clearFirst is true, will call clearForm on this.
-$.fn.clearForm():
-  Clears or deselects all select, textarea, and input nodes contained.
 $.fn.clearFields():
 $.fn.clearInputs():
+  Clears or deselects all select, textarea, and input nodes contained.
+$.fn.clearField():
+$.fn.clearInput():
   Clears or deselects a select, textarea, and input node.
 
 Possible gotcha: Form values entered as "true" or "false" are converted to booleans when objectified. This may not be desired.
