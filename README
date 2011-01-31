@@ -1,0 +1,37 @@
+See live demo at http://jsfiddle.net/donabrams/TODO
+
+SHORT DESCR:
+Utilities to convert forms to objects and and back again-- or apply an object to a form on a page
+
+LONG DESCRIPTION:
+Based on https://gist.github.com/615281
+clearForm and clearFields taken from https://github.com/malsup/form.  That project is MIT licensed, and I consider those clear functions to NOT be substantial portions, but if malsup disagrees, I'll include the MIT license.  I'd rather add the dependency, but there's a lot of fluff there.
+
+Adds the following functions to the jquery namespace:
+$.flattenObject(toFlatten/{})->{}:
+ Returns a map of the flattened object using dot/bracket notation ex.: ({a:{b:"",c:["",""]}}-> {'a.b': "", 'a.c': ["",""]}.  
+ If any object keys in toFlatten contain a "." or "[", output is likely incorrect.  Empty objects and undefined values are ignored.
+ Not circular reference safe.
+$.fn.formToObj()->{}: 
+ Takes the inputs, selects, and textareas and parses them into an object.  If names have a dot or [], parsed appropriately.
+$.fn.objToForm(obj/{}, clearFirst/bool):
+ Takes the object and places the variables into select, textarea, and input nodes of the same name.
+ If clearFirst is true, will blank out the form before applying.
+$.fn.clearForm():
+ Clears or deselects all select, textarea, and input nodes contained.
+$.fn.clearFields():
+$.fn.clearInputs():
+ Clears or deselects a select, textarea, and input node.
+
+LICENSE:
+Although this project's source is open (since it is javascript after all), all
+of its content is copyright of University of Delaware and we have no policy on 
+what license we can release things under without a lot of calling around. If 
+you really want a license to use this, I'll try and help, but it will likely be
+low priority-- so good luck. I'd personally recommend extracting the principles
+from this code and doing something similar.
+
+Donald Abrams
+dtabrams@udel.edu
+Programmer/Analyst
+University of Delaware
