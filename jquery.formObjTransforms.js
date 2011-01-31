@@ -108,7 +108,7 @@
 		return toAddTo;
     };
     $.fn.objToFields = function(obj, clearFirst) {
-        var fdoc = $.flattenObject(obj);
+        var fdoc = $.flattenObject(obj, null, null, {nullsAsEmptyString:true});
         var that = $(this);
         if (clearFirst) {
             that.clearFields();
