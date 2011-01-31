@@ -8,16 +8,17 @@ Based on https://gist.github.com/615281
 clearForm and clearFields taken from https://github.com/malsup/form.  That project is MIT licensed, and I consider those clear functions to NOT be substantial portions, but if malsup disagrees, I'll include the MIT license.  I'd rather add the dependency, but there's a lot of fluff there.
 
 Adds the following functions to the jquery namespace:
-$.flattenObject(toFlatten/{}, property/String, toAddTo/{}, options/{})->{}:
+$.flattenObject(toFlatten/{}, property/String, toAddTo/{}, nullsAsEmptyString/boolean)->{}:
   Returns a map of the flattened object using dot/bracket notation ex.: ({a:{b:"",c:["",""]}}-> {'a.b': "", 'a.c': ["",""]}.  
   If any object keys in toFlatten contain a "." or "[", output is likely incorrect.  Empty objects and undefined values are ignored.
   Not circular reference safe.
   If toAddTo is provided, adds fields to ret.  Otherwise it creates a blank object.
   If property is provided, adds fields to an object or array named property, otherwise adds it to the base object.
-  The only options supported currently is nullsAsEmptyString, which sees nulls as empty strings rather than making them null.
-$.fn.fieldsToObj(toAddTo/{}, property/String)->{}: 
+  If nullsAsEmptyString is true (default:false),nulls are flattened as empty strings.
+$.fn.fieldsToObj(toAddTo/{}, property/String, ignoreEmptyValues/boolean)->{}: 
   Takes the inputs, selects, and textareas contained in the jquery object acted on and parses them into an object.  If names have a dot or [], parsed appropriately.
   toAddTo and property act the same as in flattenObject.
+  If ignoreEmptyValues is false (default), empty values (currently only for just text/textareas) are still passed as null.
 $.fn.objToFields(obj/{}, clearFirst/bool):
   Takes the object and places the variables into select, textarea, and input nodes of the same name.
   If clearFirst is true, will call clearForm on this.
@@ -28,10 +29,9 @@ $.fn.clearField():
 $.fn.clearInput():
   Clears or deselects a select, textarea, and input node.
 
-Possible gotcha: Form values entered as "true" or "false" are converted to booleans when objectified. This may not be desired.
-
 TODO:
- - fix gotcha via some config somehow
+ - Form values entered as "true" or "false" are converted to booleans when objectified. This may not be desired (config option???).
+ - text/textareas and ignoreEmptyValues vs. other types might be a bad gotcha.
 
 LICENSE:
 Although this project's source is open (since it is javascript after all), all
