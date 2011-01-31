@@ -86,14 +86,14 @@
 		if ($.isArray(toFlatten)) {
 			for (var i = 0; i < toFlatten.length;i++) {
 				if (undefined !== toFlatten[i]) {
-					$.flattenObject(toFlatten[i], property ? (property + "[" + i + "]") : ("[" + i + "]"), toAddTo, options);
+					$.flattenObject(toFlatten[i], toAddTo, property ? (property + "[" + i + "]") : ("[" + i + "]"), options);
 				}
 			}
 		}
 		else if ((typeof toFlatten == 'object') && (null !== toFlatten)) {
             $.each(toFlatten, function(i) {
 				if (undefined !== toFlatten[i]) {
-					$.flattenObject(toFlatten[i], property ? (property + "." + i) : i, toAddTo, options);
+					$.flattenObject(toFlatten[i], toAddTo, property ? (property + "." + i) : i, options);
 				}
             });
 		}
