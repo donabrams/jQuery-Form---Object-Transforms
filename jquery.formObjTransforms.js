@@ -54,7 +54,7 @@
 		}
         return obj;
     };
-    $.fn.fieldsToObj = function(toAddTo, property) {
+    $.fn.fieldsToObj = function(toAddTo, property, ignoreEmptyValues) {
         var toAddTo = toAddTo || {};
 		if (property) {
 			toAddTo[property] = toAddTo[property] || {};
@@ -62,27 +62,38 @@
 		} else {
 			toPopulate = toAddTo;
 		}
+		//default is false
+		var iev = ignoreEmptyValues ? true : false;
         $('input[type=text][name],input[type=hidden][name],textarea[name]', this).each(function(i) {
-            addToObjectOrArray(toPopulate, this.name, parseFieldVal(this.value));
+			var val = parseFieldVal(this.value);
+			if (val || !iev) {
+	            addToObjectOrArray(toPopulate, this.name, val);
+			}
         });
         $('input[type=checkbox][name],input[type=radio][name]', this).each(function(i) {
             if (this.checked) {
-                addToObjectOrArray(toPopulate, this.name, parseFieldVal(this.value));
+				var val = parseFieldVal(this.value);
+				if (val || !iev) {
+				    addToObjectOrArray(toPopulate, this.name, val);
+				}
             }
         });
         $('select[name]', this).each(function(i) {
             var select = this;
             $("option", this).each(function(j) {
                 if (this.selected) {
-                    addToObjectOrArray(toPopulate, select.name, parseFieldVal(this.value));
+					var val = parseFieldVal(this.value);
+					if (val || !iev) {
+						addToObjectOrArray(toPopulate, select.name, val);
+					}
                 }
             });
         });
         return toAddTo;
     };
-    $.flattenObject = function(toFlatten, toAddTo, property, options) {
+    $.flattenObject = function(toFlatten, toAddTo, property, nullsAsEmptyString) {
         var toAddTo = toAddTo || {};
-        var nullsAsEmptyString = options && options.nullsAsEmptyString;
+        var nullsAsEmptyString = nullsAsEmptyString ? true : false;
 		if ($.isArray(toFlatten)) {
 			for (var i = 0; i < toFlatten.length;i++) {
 				if (undefined !== toFlatten[i]) {
@@ -99,16 +110,16 @@
 		}
 		else {
 			if (property) {
-				toAddTo[property] = nullsAsEmptyString ? (toFlatten == null ? "" : String(toFlatten)) : String(toFlatten);
+				toAddTo[property] = nullsAsEmptyString ? (toFlatten == null ? "" : null) : String(toFlatten);
 			}
 			else {
-				toAddTo = nullsAsEmptyString ? (toFlatten == null ? "" : String(toFlatten)) : String(toFlatten);
+				toAddTo = nullsAsEmptyString ? (toFlatten == null ? "" : null) : String(toFlatten);
 			}
 		}
 		return toAddTo;
     };
     $.fn.objToFields = function(obj, clearFirst) {
-        var fdoc = $.flattenObject(obj, null, null, {nullsAsEmptyString:true});
+        var fdoc = $.flattenObject(obj);
         var that = $(this);
         if (clearFirst) {
             that.clearFields();
