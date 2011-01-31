@@ -112,16 +112,14 @@
 			if (property) {
 				if (toFlatten == null) {
 					toAddTo[property] = nullsAsEmptyString ? "" : null;
-				}
-				else {
+				} else {
 					toAddTo[property] = String(toFlatten);
 				}
 			}
 			else {
 				if (toFlatten == null) {
 					toAddTo = nullsAsEmptyString ? "" : null;
-				}
-				else {
+				} else {
 					toAddTo = String(toFlatten);
 				}
 			}
