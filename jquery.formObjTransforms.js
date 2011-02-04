@@ -56,6 +56,7 @@
     };
     $.fn.fieldsToObj = function(toAddTo, property, ignoreEmptyValues) {
         var toAddTo = toAddTo || {};
+		var toPopulate;
 		if (property) {
 			toAddTo[property] = toAddTo[property] || {};
 			toPopulate = toAddTo[property];			
